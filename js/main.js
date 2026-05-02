@@ -487,7 +487,10 @@
   };
 
   const fetchLeetCode = async () => {
+    // Set the guard synchronously before any await so concurrent triggers
+    // (IntersectionObserver + setTimeout) cannot both pass it and double-render.
     if (lcLoaded) return;
+    lcLoaded = true;
     let lastErr = null;
     for (const url of lcEndpoints) {
       try {
@@ -497,7 +500,6 @@
           const ar = computeAcceptance(data);
           if (ar !== null) data.acceptanceRate = ar;
         }
-        lcLoaded = true;
         renderLcCards(data);
         renderLcChart(data);
         return;
@@ -507,6 +509,11 @@
         console.warn(`[LeetCode] ${url} failed:`, err);
       }
     }
+    // All endpoints failed — release the guard so a later trigger
+    // (e.g. user scrolling back into view, slow Render cold-start finishing)
+    // can retry. The race-condition fix above is preserved because the guard
+    // is still set synchronously before any await.
+    lcLoaded = false;
     // eslint-disable-next-line no-console
     console.warn("[LeetCode] all endpoints failed:", lastErr);
     showLcError();
