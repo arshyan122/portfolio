@@ -1400,6 +1400,248 @@ body.cursor-hover .cursor-ring {
   transform: translateY(-3px);
 }
 
+/* ============================================================
+   FEATURE LAYER — added in v2: scroll-progress, back-to-top,
+   tech marquee, magnetic CTAs, hero glitch, project shine.
+   ============================================================ */
+
+/* ---------- Scroll progress rail ---------- */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: 3px;
+  z-index: 1100;
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #1f5c99 0%, #00d4ff 60%, #6db8ff 100%);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+  transition: width 0.05s linear;
+}
+
+/* ---------- Back-to-top rocket ---------- */
+.back-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #00d4ff;
+  font-size: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1050;
+  opacity: 0;
+  transform: translateY(20px) scale(0.85);
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.3s ease, color 0.3s ease;
+  box-shadow: 0 6px 24px rgba(0, 212, 255, 0.18);
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.back-to-top:hover {
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(0, 212, 255, 0.55), inset 0 0 18px rgba(0, 212, 255, 0.25);
+  transform: translateY(-4px) scale(1.06) rotate(-8deg);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px) scale(0.96);
+}
+
+/* ---------- Tech marquee ---------- */
+.tech-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 28px 0;
+  margin: 30px 0 10px;
+  border-top: 1px solid rgba(0, 212, 255, 0.08);
+  border-bottom: 1px solid rgba(0, 212, 255, 0.08);
+  background:
+    linear-gradient(90deg, rgba(10, 15, 30, 0) 0%, rgba(10, 15, 30, 0.4) 50%, rgba(10, 15, 30, 0) 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.tech-track {
+  display: inline-flex;
+  gap: 56px;
+  white-space: nowrap;
+  animation: tech-scroll 38s linear infinite;
+  will-change: transform;
+}
+
+.tech-marquee:hover .tech-track {
+  animation-play-state: paused;
+}
+
+.tech-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.02em;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.tech-item i {
+  color: #00d4ff;
+  font-size: 1.15rem;
+  filter: drop-shadow(0 0 6px rgba(0, 212, 255, 0.45));
+}
+
+.tech-item:hover {
+  color: #fff;
+  text-shadow: 0 0 12px rgba(0, 212, 255, 0.55);
+}
+
+@keyframes tech-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---------- Magnetic CTA buttons ---------- */
+.btn.magnetic {
+  position: relative;
+  transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.25s ease, background 0.3s ease, color 0.3s ease;
+  will-change: transform;
+}
+
+.btn.magnetic::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 212, 255, 0.35) 0%,
+    rgba(0, 212, 255, 0) 60%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn.magnetic:hover::after {
+  opacity: 1;
+}
+
+/* ---------- Hero name glitch ---------- */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  background: none;
+  transition: opacity 0.2s ease;
+  font: inherit;
+  letter-spacing: inherit;
+}
+
+.glitch::before {
+  text-shadow: 2px 0 #ff2bd6, -1px 0 #ff2bd6;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(0, 0);
+}
+
+.glitch::after {
+  text-shadow: -2px 0 #00d4ff, 1px 0 #00d4ff;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+  transform: translate(0, 0);
+}
+
+.glitch:hover::before,
+.glitch.glitch-trigger::before {
+  opacity: 1;
+  animation: glitch-anim-1 0.55s steps(2, jump-none) 1;
+}
+
+.glitch:hover::after,
+.glitch.glitch-trigger::after {
+  opacity: 1;
+  animation: glitch-anim-2 0.55s steps(2, jump-none) 1;
+}
+
+@keyframes glitch-anim-1 {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(-3px, 1px); }
+  40%  { transform: translate(2px, -2px); }
+  60%  { transform: translate(-2px, 2px); }
+  80%  { transform: translate(3px, 0); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0%   { transform: translate(0, 0); }
+  20%  { transform: translate(2px, -1px); }
+  40%  { transform: translate(-3px, 2px); }
+  60%  { transform: translate(2px, -2px); }
+  80%  { transform: translate(-2px, 1px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* ---------- Project card shine sweep ---------- */
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-shine {
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(0, 212, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 70%,
+    transparent 100%
+  );
+  pointer-events: none;
+  transform: skewX(-20deg);
+  transition: left 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 1;
+}
+
+.project-card:hover .project-shine {
+  left: 130%;
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .about-grid {
@@ -1499,6 +1741,27 @@ body.cursor-hover .cursor-ring {
   .hero-floating {
     display: none;
   }
+
+  .back-to-top {
+    width: 44px;
+    height: 44px;
+    right: 16px;
+    bottom: 16px;
+    font-size: 1.05rem;
+  }
+
+  .tech-marquee {
+    padding: 22px 0;
+    margin: 18px 0 6px;
+  }
+
+  .tech-track {
+    gap: 38px;
+  }
+
+  .tech-item {
+    font-size: 0.85rem;
+  }
 }
 
 /* ---------- Reduced motion ---------- */
@@ -1517,8 +1780,20 @@ body.cursor-hover .cursor-ring {
   .avatar-ring,
   .avatar-inner,
   .splash-bracket,
-  .glow {
+  .glow,
+  .tech-track,
+  .glitch::before,
+  .glitch::after {
     animation: none !important;
+  }
+
+  .glitch::before,
+  .glitch::after {
+    opacity: 0 !important;
+  }
+
+  .scroll-progress span {
+    transition: none !important;
   }
 
   body.has-custom-cursor,

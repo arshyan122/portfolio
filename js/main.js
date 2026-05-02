@@ -487,7 +487,10 @@
   };
 
   const fetchLeetCode = async () => {
+    // Set the guard synchronously before any await so concurrent triggers
+    // (IntersectionObserver + setTimeout) cannot both pass it and double-render.
     if (lcLoaded) return;
+    lcLoaded = true;
     let lastErr = null;
     for (const url of lcEndpoints) {
       try {
@@ -497,7 +500,6 @@
           const ar = computeAcceptance(data);
           if (ar !== null) data.acceptanceRate = ar;
         }
-        lcLoaded = true;
         renderLcCards(data);
         renderLcChart(data);
         return;
@@ -507,6 +509,11 @@
         console.warn(`[LeetCode] ${url} failed:`, err);
       }
     }
+    // All endpoints failed — release the guard so a later trigger
+    // (e.g. user scrolling back into view, slow Render cold-start finishing)
+    // can retry. The race-condition fix above is preserved because the guard
+    // is still set synchronously before any await.
+    lcLoaded = false;
     // eslint-disable-next-line no-console
     console.warn("[LeetCode] all endpoints failed:", lastErr);
     showLcError();
@@ -529,5 +536,110 @@
     lcObs.observe(lcSection);
     // Also kick off after 800ms unconditionally so the data is ready by the time the user gets there
     setTimeout(fetchLeetCode, 800);
+  }
+
+  /* ============================================================
+     FEATURE LAYER — scroll-progress, back-to-top, magnetic CTAs,
+     hero glitch trigger, confetti on resume click.
+     ============================================================ */
+
+  /* -------------------- Scroll progress rail -------------------- */
+  const progressBar = document.querySelector("#scroll-progress span");
+  if (progressBar) {
+    let ticking = false;
+    const updateProgress = () => {
+      const scrollable =
+        (document.documentElement.scrollHeight || document.body.scrollHeight) -
+        window.innerHeight;
+      const pct =
+        scrollable > 0 ? Math.min(100, (window.scrollY / scrollable) * 100) : 0;
+      progressBar.style.width = pct + "%";
+      ticking = false;
+    };
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          requestAnimationFrame(updateProgress);
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+    updateProgress();
+  }
+
+  /* -------------------- Back-to-top button -------------------- */
+  const backToTop = document.getElementById("back-to-top");
+  if (backToTop) {
+    const toggleBackToTop = () => {
+      backToTop.classList.toggle("visible", window.scrollY > 600);
+    };
+    window.addEventListener("scroll", toggleBackToTop, { passive: true });
+    toggleBackToTop();
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: prefersReducedMotion ? "auto" : "smooth",
+      });
+    });
+  }
+
+  /* -------------------- Magnetic CTA buttons -------------------- */
+  if (isFinePointer && !prefersReducedMotion) {
+    document.querySelectorAll("[data-magnetic]").forEach((btn) => {
+      const strength = 16; // px max pull
+      btn.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const tx = ((x - cx) / cx) * strength;
+        const ty = ((y - cy) / cy) * strength;
+        btn.style.transform = `translate(${tx}px, ${ty}px)`;
+        btn.style.setProperty("--mx", `${(x / rect.width) * 100}%`);
+        btn.style.setProperty("--my", `${(y / rect.height) * 100}%`);
+      });
+      btn.addEventListener("mouseleave", () => {
+        btn.style.transform = "";
+      });
+    });
+  }
+
+  /* -------------------- Hero glitch flicker on load -------------------- */
+  if (!prefersReducedMotion) {
+    const heroName = document.querySelector(".hero-name.glitch");
+    if (heroName) {
+      // One subtle flicker shortly after splash dismisses.
+      setTimeout(() => {
+        heroName.classList.add("glitch-trigger");
+        setTimeout(() => heroName.classList.remove("glitch-trigger"), 650);
+      }, prefersReducedMotion ? 0 : 1700);
+    }
+  }
+
+  /* -------------------- Confetti on Resume click -------------------- */
+  const resumeBtn = document.getElementById("resume-btn");
+  if (resumeBtn) {
+    resumeBtn.addEventListener("click", () => {
+      if (prefersReducedMotion || !window.confetti) return;
+      const colors = ["#00d4ff", "#1f5c99", "#6db8ff", "#ffffff"];
+      const burst = (originX, originY) =>
+        window.confetti({
+          particleCount: 70,
+          spread: 65,
+          startVelocity: 38,
+          origin: { x: originX, y: originY },
+          colors,
+          scalar: 0.9,
+          ticks: 200,
+          disableForReducedMotion: true,
+        });
+      // Two side-bursts for a satisfying "celebrate the download" feel.
+      burst(0.2, 0.8);
+      burst(0.8, 0.8);
+      setTimeout(() => burst(0.5, 0.7), 180);
+    });
   }
 })();
