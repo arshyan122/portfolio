@@ -487,7 +487,10 @@
   };
 
   const fetchLeetCode = async () => {
+    // Set the guard synchronously before any await so concurrent triggers
+    // (IntersectionObserver + setTimeout) cannot both pass it and double-render.
     if (lcLoaded) return;
+    lcLoaded = true;
     let lastErr = null;
     for (const url of lcEndpoints) {
       try {
@@ -497,7 +500,6 @@
           const ar = computeAcceptance(data);
           if (ar !== null) data.acceptanceRate = ar;
         }
-        lcLoaded = true;
         renderLcCards(data);
         renderLcChart(data);
         return;
