@@ -10,4 +10,4 @@ The hero section's **Download Resume** button links to:
 assets/Md_Arshyan_Farooqui_Resume.pdf
 ```
 
-Drop your latest resume PDF into this folder with that exact filename, or update the link in `index.html` (search for `Md_Arshyan_Farooqui_Resume.pdf`).
+The current resume is committed at that path. To replace it, overwrite the file with the same filename so the hero link keeps working — or rename and update the `href` in `index.html` (search for `Md_Arshyan_Farooqui_Resume.pdf`).
