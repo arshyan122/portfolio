@@ -500,6 +500,9 @@
           const ar = computeAcceptance(data);
           if (ar !== null) data.acceptanceRate = ar;
         }
+        // If a previous attempt failed and showed the "Stats unavailable"
+        // message, hide it now that the retry succeeded.
+        if (lcError) lcError.hidden = true;
         renderLcCards(data);
         renderLcChart(data);
         return;
