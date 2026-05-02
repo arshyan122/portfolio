@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Md Arshyan Farooqui — AI Developer, Full-Stack Engineer & Cybersecurity Enthusiast. Final-year B.Tech (Artificial Intelligence) student building intelligent, scalable, and secure software." />
+  <meta name="theme-color" content="#0a0f1e" />
+  <title>Md Arshyan Farooqui — AI Developer & SDE</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+  <!-- AOS (scroll-triggered animations) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Splash / page-load intro -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-logo">
+      <span class="splash-bracket">&lt;</span>
+      <span class="splash-text">MAF</span>
+      <span class="splash-bracket">/&gt;</span>
+    </div>
+    <div class="splash-bar"><span></span></div>
+  </div>
+
+  <!-- Custom cursor -->
+  <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- Animated background -->
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob blob-1"></span>
+    <span class="blob blob-2"></span>
+    <span class="blob blob-3"></span>
+  </div>
+  <div id="tsparticles" aria-hidden="true"></div>
+
+  <!-- Sticky Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>MAF<span class="logo-bracket">/&gt;</span>
+      </a>
+      <nav class="nav-links" id="nav-links" aria-label="Primary">
+        <a href="#hero" class="nav-link" data-section="hero">Home</a>
+        <a href="#about" class="nav-link" data-section="about">About</a>
+        <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+        <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+        <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+        <a href="#leetcode" class="nav-link" data-section="leetcode">LeetCode</a>
+        <a href="#education" class="nav-link" data-section="education">Education</a>
+        <a href="#certifications" class="nav-link" data-section="certifications">Certs</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      </nav>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section id="hero" class="hero">
+      <div class="hero-floating" aria-hidden="true">
+        <i class="bi bi-code-slash float-icon" style="--x:8%; --y:18%; --d:0s;"></i>
+        <i class="bi bi-cpu float-icon" style="--x:88%; --y:22%; --d:1.2s;"></i>
+        <i class="bi bi-robot float-icon" style="--x:14%; --y:72%; --d:2.4s;"></i>
+        <i class="bi bi-shield-lock float-icon" style="--x:82%; --y:78%; --d:0.6s;"></i>
+        <i class="bi bi-cloud float-icon" style="--x:48%; --y:14%; --d:1.8s;"></i>
+        <i class="bi bi-braces float-icon" style="--x:6%; --y:46%; --d:3s;"></i>
+        <i class="bi bi-database float-icon" style="--x:92%; --y:50%; --d:1.5s;"></i>
+        <i class="bi bi-terminal float-icon" style="--x:50%; --y:84%; --d:2.1s;"></i>
+      </div>
+
+      <div class="container hero-inner">
+        <p class="hero-greeting">Hi, I'm</p>
+        <h1 class="hero-name glow">Md Arshyan Farooqui</h1>
+        <h2 class="hero-role">
+          <span class="role-prefix">I'm a</span>
+          <span class="typed" id="typed"></span>
+          <span class="caret">|</span>
+        </h2>
+        <p class="hero-sub">Building intelligent, scalable, and secure software.</p>
+        <div class="hero-cta">
+          <a href="#projects" class="btn btn-primary">
+            <i class="bi bi-rocket-takeoff"></i> View Projects
+          </a>
+          <a href="assets/Md_Arshyan_Farooqui_Resume.pdf" class="btn btn-ghost" download>
+            <i class="bi bi-download"></i> Download Resume
+          </a>
+        </div>
+        <a href="#about" class="hero-scroll" aria-label="Scroll to About">
+          <span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">01</span>
+          <h2 class="section-title">About <span>Me</span></h2>
+          <p class="section-sub">A quick intro</p>
+        </header>
+
+        <div class="about-grid">
+          <div class="about-avatar" data-aos="zoom-in">
+            <div class="avatar-ring">
+              <div class="avatar-inner">
+                <span>MA</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-text" data-aos="fade-left">
+            <p>
+              I'm a final-year <strong>B.Tech (Artificial Intelligence)</strong> student at BBDEC, Lucknow,
+              and an aspiring <strong>Software Development Engineer</strong>. I love crafting clean,
+              testable software — from AI-powered mobile apps to cloud-deployed back-ends — and I'm
+              equally comfortable digging into <strong>cybersecurity</strong> and <strong>data structures &amp; algorithms</strong>.
+            </p>
+            <p>
+              I care about <em>well-architected</em> systems: SDLC discipline, TDD, design patterns, and
+              writing code that scales. Currently sharpening my problem-solving on LeetCode and
+              shipping side projects in React Native, Node.js and AWS.
+            </p>
+
+            <div class="stats" id="stats">
+              <div class="stat-card glass">
+                <div class="stat-num" data-target="8.01" data-decimals="2">0</div>
+                <div class="stat-label">CGPA</div>
+              </div>
+              <div class="stat-card glass">
+                <div class="stat-num" data-target="1">0</div>
+                <div class="stat-label">Internship</div>
+              </div>
+              <div class="stat-card glass">
+                <div class="stat-num" data-target="1">0</div>
+                <div class="stat-label">Project</div>
+              </div>
+              <div class="stat-card glass">
+                <div class="stat-num" data-target="3" data-suffix="+">0</div>
+                <div class="stat-label">Certifications</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">02</span>
+          <h2 class="section-title">Skills &amp; <span>Toolbox</span></h2>
+          <p class="section-sub">What I work with</p>
+        </header>
+
+        <div class="skills-grid">
+          <div class="skill-group glass" data-aos="fade-up">
+            <h3><i class="bi bi-braces-asterisk"></i> Languages</h3>
+            <div class="pills">
+              <span class="pill">Python</span>
+              <span class="pill">C++</span>
+            </div>
+          </div>
+
+          <div class="skill-group glass" data-aos="fade-up" data-aos-delay="80">
+            <h3><i class="bi bi-diagram-3"></i> CS Fundamentals</h3>
+            <div class="pills">
+              <span class="pill">DSA</span>
+              <span class="pill">OOP</span>
+              <span class="pill">Design Patterns</span>
+              <span class="pill">Multithreading</span>
+              <span class="pill">OS</span>
+              <span class="pill">Computer Networks</span>
+            </div>
+          </div>
+
+          <div class="skill-group glass" data-aos="fade-up" data-aos-delay="160">
+            <h3><i class="bi bi-bug"></i> Software Engineering</h3>
+            <div class="pills">
+              <span class="pill">SDLC (Agile)</span>
+              <span class="pill">TDD</span>
+              <span class="pill">Unit Testing</span>
+              <span class="pill">Debugging</span>
+            </div>
+          </div>
+
+          <div class="skill-group glass" data-aos="fade-up" data-aos-delay="240">
+            <h3><i class="bi bi-shield-lock"></i> Cloud &amp; Security</h3>
+            <div class="pills">
+              <span class="pill">AWS EC2</span>
+              <span class="pill">AWS S3</span>
+              <span class="pill">AWS IAM</span>
+              <span class="pill">Vulnerability Assessment</span>
+              <span class="pill">Penetration Testing</span>
+            </div>
+          </div>
+
+          <div class="skill-group glass" data-aos="fade-up" data-aos-delay="320">
+            <h3><i class="bi bi-phone"></i> App Development</h3>
+            <div class="pills">
+              <span class="pill">React Native (Expo)</span>
+              <span class="pill">Android SDK</span>
+              <span class="pill">Node.js</span>
+              <span class="pill">Express.js</span>
+              <span class="pill">MongoDB</span>
+              <span class="pill">REST APIs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">03</span>
+          <h2 class="section-title">Experience &amp; <span>Internships</span></h2>
+          <p class="section-sub">Where I've worked</p>
+        </header>
+
+        <div class="timeline">
+          <div class="timeline-item" data-aos="fade-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card glass">
+              <div class="timeline-meta">
+                <span class="timeline-date"><i class="bi bi-calendar3"></i> Jan 2025 – Feb 2025</span>
+                <span class="timeline-company"><i class="bi bi-building"></i> Edunet Foundation (IBM Initiative)</span>
+              </div>
+              <h3 class="timeline-role">Cyber Security Intern</h3>
+              <ul class="timeline-bullets">
+                <li>Conducted <strong>vulnerability assessment</strong> &amp; <strong>penetration testing</strong> on web apps to surface real-world risks.</li>
+                <li>Traced <strong>HTTP/TCP</strong> paths to isolate security defects using SDLC-aligned workflows.</li>
+                <li>Authored mitigation reports demonstrating professional defect documentation practices.</li>
+              </ul>
+              <div class="timeline-tags">
+                <span class="tag">VAPT</span>
+                <span class="tag">SDLC</span>
+                <span class="tag">HTTP/TCP</span>
+                <span class="tag">Reporting</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">04</span>
+          <h2 class="section-title">Featured <span>Projects</span></h2>
+          <p class="section-sub">Things I've built</p>
+        </header>
+
+        <div class="projects-grid">
+          <article class="project-card glass tilt" data-aos="fade-up">
+            <div class="project-glow" aria-hidden="true"></div>
+            <header class="project-head">
+              <div class="project-icon"><i class="bi bi-heart-pulse"></i></div>
+              <div>
+                <h3 class="project-title">MedAssist</h3>
+                <p class="project-tag">AI-Powered Healthcare Management App</p>
+              </div>
+            </header>
+            <p class="project-desc">
+              A full-stack mobile healthcare assistant: an AI chatbot for triage, JWT-secured auth,
+              appointment booking and real-time notifications — all backed by RESTful APIs.
+            </p>
+            <ul class="project-features">
+              <li><i class="bi bi-check2-circle"></i> Google Gemini-powered medical chatbot</li>
+              <li><i class="bi bi-check2-circle"></i> JWT authentication &amp; role-based access</li>
+              <li><i class="bi bi-check2-circle"></i> Appointment booking + push notifications</li>
+              <li><i class="bi bi-check2-circle"></i> RESTful Express.js + MongoDB backend</li>
+            </ul>
+            <div class="project-stack">
+              <span class="pill">React Native</span>
+              <span class="pill">Expo</span>
+              <span class="pill">Node.js</span>
+              <span class="pill">Express.js</span>
+              <span class="pill">MongoDB</span>
+              <span class="pill">Gemini API</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-primary" href="https://github.com/arshyan122/MedAssist" target="_blank" rel="noopener">
+                <i class="bi bi-github"></i> GitHub
+              </a>
+              <a class="btn btn-ghost" href="https://github.com/arshyan122/MedAssist/releases" target="_blank" rel="noopener">
+                <i class="bi bi-android2"></i> Download APK
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- LeetCode Stats -->
+    <section id="leetcode" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">05</span>
+          <h2 class="section-title">
+            <i class="bi bi-code-square lc-icon"></i>
+            Problem <span>Solving</span>
+          </h2>
+          <p class="section-sub">Live LeetCode stats</p>
+        </header>
+
+        <div class="lc-wrap" id="lc-wrap" data-aos="fade-up">
+          <div class="lc-stats" id="lc-stats">
+            <!-- Skeleton placeholders -->
+            <div class="lc-card glass skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+            <div class="lc-card glass skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+            <div class="lc-card glass skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+            <div class="lc-card glass skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+            <div class="lc-card glass skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+            <div class="lc-card glass skeleton"><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+          </div>
+
+          <div class="lc-chart-wrap glass" id="lc-chart-wrap">
+            <h3 class="lc-chart-title">Difficulty Breakdown</h3>
+            <div class="lc-chart-canvas">
+              <canvas id="lc-chart" width="280" height="280" aria-label="LeetCode difficulty breakdown chart"></canvas>
+              <div class="lc-chart-center" id="lc-chart-center">
+                <span class="lc-chart-num" id="lc-chart-total">—</span>
+                <span class="lc-chart-label">Total Solved</span>
+              </div>
+            </div>
+            <div class="lc-legend">
+              <span class="legend-item"><i class="dot easy"></i> Easy <b id="legend-easy">—</b></span>
+              <span class="legend-item"><i class="dot medium"></i> Medium <b id="legend-medium">—</b></span>
+              <span class="legend-item"><i class="dot hard"></i> Hard <b id="legend-hard">—</b></span>
+            </div>
+            <a class="btn btn-primary lc-profile" href="https://leetcode.com/u/arshyan122/" target="_blank" rel="noopener">
+              <i class="bi bi-box-arrow-up-right"></i> View Profile
+            </a>
+          </div>
+        </div>
+        <p class="lc-error" id="lc-error" hidden>Stats unavailable right now — please try again later. <a href="https://leetcode.com/u/arshyan122/" target="_blank" rel="noopener">View profile on LeetCode</a>.</p>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">06</span>
+          <h2 class="section-title"><span>Education</span></h2>
+          <p class="section-sub">Academic background</p>
+        </header>
+
+        <div class="edu-card glass" data-aos="zoom-in-up">
+          <div class="edu-icon"><i class="bi bi-mortarboard"></i></div>
+          <div class="edu-body">
+            <h3 class="edu-degree">B.Tech in Artificial Intelligence</h3>
+            <p class="edu-school">BBDEC, Lucknow — affiliated to AKTU</p>
+            <div class="edu-meta">
+              <span><i class="bi bi-calendar3"></i> 2022 – 2026</span>
+              <span><i class="bi bi-award"></i> CGPA: 8.01 / 10</span>
+            </div>
+            <div class="edu-coursework">
+              <span class="pill">DSA</span>
+              <span class="pill">OOP</span>
+              <span class="pill">OS</span>
+              <span class="pill">Computer Networks</span>
+              <span class="pill">AI / ML</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">07</span>
+          <h2 class="section-title"><span>Certifications</span></h2>
+          <p class="section-sub">Continuous learning</p>
+        </header>
+
+        <div class="cert-grid">
+          <div class="cert-card glass" data-aos="fade-up">
+            <div class="cert-badge">🏅</div>
+            <h3>AI for India 2.0</h3>
+            <p>Govt. of India / NASSCOM</p>
+          </div>
+          <div class="cert-card glass" data-aos="fade-up" data-aos-delay="80">
+            <div class="cert-badge">🏅</div>
+            <h3>Google Ads Certification</h3>
+            <p>Google Skillshop</p>
+          </div>
+          <div class="cert-card glass" data-aos="fade-up" data-aos-delay="160">
+            <div class="cert-badge">🏅</div>
+            <h3>Cyber Security &amp; Ethical Hacking</h3>
+            <p>Edunet Foundation (IBM)</p>
+          </div>
+          <div class="cert-card glass" data-aos="fade-up" data-aos-delay="240">
+            <div class="cert-badge">🏅</div>
+            <h3>JEE 2022 Qualified</h3>
+            <p>National Engineering Entrance</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+      <div class="container">
+        <header class="section-head" data-aos="fade-up">
+          <span class="section-num">08</span>
+          <h2 class="section-title">Let's <span>Connect</span></h2>
+          <p class="section-sub">I'm always open to interesting opportunities</p>
+        </header>
+
+        <div class="contact-grid">
+          <a class="contact-card glass" href="mailto:mdarshyan829@gmail.com" data-aos="fade-up">
+            <div class="contact-icon"><i class="bi bi-envelope-at"></i></div>
+            <div>
+              <span class="contact-label">Email</span>
+              <span class="contact-value">mdarshyan829@gmail.com</span>
+            </div>
+          </a>
+
+          <a class="contact-card glass" href="tel:+917355066129" data-aos="fade-up" data-aos-delay="60">
+            <div class="contact-icon"><i class="bi bi-telephone"></i></div>
+            <div>
+              <span class="contact-label">Phone</span>
+              <span class="contact-value">+91 73550 66129</span>
+            </div>
+          </a>
+
+          <a class="contact-card glass" href="https://linkedin.com/in/md-arshyan-369454257" target="_blank" rel="noopener" data-aos="fade-up" data-aos-delay="120">
+            <div class="contact-icon"><i class="bi bi-linkedin"></i></div>
+            <div>
+              <span class="contact-label">LinkedIn</span>
+              <span class="contact-value">md-arshyan-369454257</span>
+            </div>
+          </a>
+
+          <a class="contact-card glass" href="https://github.com/arshyan122" target="_blank" rel="noopener" data-aos="fade-up" data-aos-delay="180">
+            <div class="contact-icon"><i class="bi bi-github"></i></div>
+            <div>
+              <span class="contact-label">GitHub</span>
+              <span class="contact-value">arshyan122</span>
+            </div>
+          </a>
+
+          <a class="contact-card glass" href="https://leetcode.com/u/arshyan122/" target="_blank" rel="noopener" data-aos="fade-up" data-aos-delay="240">
+            <div class="contact-icon"><i class="bi bi-puzzle"></i></div>
+            <div>
+              <span class="contact-label">LeetCode</span>
+              <span class="contact-value">u/arshyan122</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Md Arshyan Farooqui. Built with passion, vanilla JS, and a lot of LeetCode coffee.</p>
+      <a href="#hero" class="footer-top" aria-label="Back to top">
+        <i class="bi bi-arrow-up-circle"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.5.0/tsparticles.bundle.min.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>
