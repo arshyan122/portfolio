@@ -21,6 +21,9 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <!-- Scroll progress rail -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"><span></span></div>
+
   <!-- Splash / page-load intro -->
   <div class="splash" id="splash" aria-hidden="true">
     <div class="splash-logo">
@@ -82,7 +85,7 @@
 
       <div class="container hero-inner">
         <p class="hero-greeting">Hi, I'm</p>
-        <h1 class="hero-name glow">Md Arshyan Farooqui</h1>
+        <h1 class="hero-name glow glitch" data-text="Md Arshyan Farooqui">Md Arshyan Farooqui</h1>
         <h2 class="hero-role">
           <span class="role-prefix">I'm a</span>
           <span class="typed" id="typed"></span>
@@ -90,10 +93,10 @@
         </h2>
         <p class="hero-sub">Building intelligent, scalable, and secure software.</p>
         <div class="hero-cta">
-          <a href="#projects" class="btn btn-primary">
+          <a href="#projects" class="btn btn-primary magnetic" data-magnetic>
             <i class="bi bi-rocket-takeoff"></i> View Projects
           </a>
-          <a href="assets/Md_Arshyan_Farooqui_Resume.pdf" class="btn btn-ghost" download>
+          <a href="assets/Md_Arshyan_Farooqui_Resume.pdf" class="btn btn-ghost magnetic" id="resume-btn" data-magnetic download>
             <i class="bi bi-download"></i> Download Resume
           </a>
         </div>
@@ -156,6 +159,38 @@
         </div>
       </div>
     </section>
+
+    <!-- Tech marquee / infinite ticker -->
+    <div class="tech-marquee" aria-hidden="true">
+      <div class="tech-track">
+        <!-- group 1 -->
+        <span class="tech-item"><i class="bi bi-filetype-py"></i> Python</span>
+        <span class="tech-item"><i class="bi bi-braces"></i> C++</span>
+        <span class="tech-item"><i class="bi bi-diagram-3"></i> DSA</span>
+        <span class="tech-item"><i class="bi bi-cpu"></i> AI / ML</span>
+        <span class="tech-item"><i class="bi bi-cloud-fill"></i> AWS</span>
+        <span class="tech-item"><i class="bi bi-shield-lock-fill"></i> Cyber Security</span>
+        <span class="tech-item"><i class="bi bi-phone"></i> React Native</span>
+        <span class="tech-item"><i class="bi bi-node-plus"></i> Node.js</span>
+        <span class="tech-item"><i class="bi bi-database-fill"></i> MongoDB</span>
+        <span class="tech-item"><i class="bi bi-server"></i> Express.js</span>
+        <span class="tech-item"><i class="bi bi-git"></i> Git</span>
+        <span class="tech-item"><i class="bi bi-window-stack"></i> REST APIs</span>
+        <!-- duplicate group 2 (for seamless loop) -->
+        <span class="tech-item"><i class="bi bi-filetype-py"></i> Python</span>
+        <span class="tech-item"><i class="bi bi-braces"></i> C++</span>
+        <span class="tech-item"><i class="bi bi-diagram-3"></i> DSA</span>
+        <span class="tech-item"><i class="bi bi-cpu"></i> AI / ML</span>
+        <span class="tech-item"><i class="bi bi-cloud-fill"></i> AWS</span>
+        <span class="tech-item"><i class="bi bi-shield-lock-fill"></i> Cyber Security</span>
+        <span class="tech-item"><i class="bi bi-phone"></i> React Native</span>
+        <span class="tech-item"><i class="bi bi-node-plus"></i> Node.js</span>
+        <span class="tech-item"><i class="bi bi-database-fill"></i> MongoDB</span>
+        <span class="tech-item"><i class="bi bi-server"></i> Express.js</span>
+        <span class="tech-item"><i class="bi bi-git"></i> Git</span>
+        <span class="tech-item"><i class="bi bi-window-stack"></i> REST APIs</span>
+      </div>
+    </div>
 
     <!-- Skills -->
     <section id="skills" class="section">
@@ -270,6 +305,7 @@
         <div class="projects-grid">
           <article class="project-card glass tilt" data-aos="fade-up">
             <div class="project-glow" aria-hidden="true"></div>
+            <div class="project-shine" aria-hidden="true"></div>
             <header class="project-head">
               <div class="project-icon"><i class="bi bi-heart-pulse"></i></div>
               <div>
@@ -481,11 +517,17 @@
     </div>
   </footer>
 
+  <!-- Floating "back to top" rocket -->
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" type="button">
+    <i class="bi bi-rocket-takeoff-fill"></i>
+  </button>
+
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.5.0/tsparticles.bundle.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>
 </html>
