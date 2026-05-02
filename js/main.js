@@ -509,6 +509,11 @@
         console.warn(`[LeetCode] ${url} failed:`, err);
       }
     }
+    // All endpoints failed — release the guard so a later trigger
+    // (e.g. user scrolling back into view, slow Render cold-start finishing)
+    // can retry. The race-condition fix above is preserved because the guard
+    // is still set synchronously before any await.
+    lcLoaded = false;
     // eslint-disable-next-line no-console
     console.warn("[LeetCode] all endpoints failed:", lastErr);
     showLcError();
