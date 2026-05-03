@@ -443,13 +443,23 @@ body.cursor-hover .cursor-ring {
 /* On mobile we MUST NOT apply backdrop-filter to the navbar: a non-`none`
    backdrop-filter makes the element a containing block for `position:
    fixed` descendants (per CSS spec), which would trap the .nav-links
-   drawer inside the 70px-tall navbar after the user scrolls. Use a more
-   solid background instead — visually almost identical on phones. */
+   drawer inside the 70px-tall navbar after the user scrolls.
+
+   We also need the navbar to be FULLY opaque on mobile in *both* states
+   (top of page AND scrolled). Otherwise as section content (e.g. the
+   "01 / About Me" header, the avatar) scrolls under the fixed navbar,
+   it visibly bleeds through and the bar looks transparent on phones. */
 @media (max-width: 760px) {
+  .navbar {
+    background: #0a0f1e;
+    border-bottom: 1px solid transparent;
+  }
+
   .navbar.scrolled {
-    background: rgba(10, 15, 30, 0.92);
+    background: #0a0f1e;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+    border-bottom: 1px solid var(--border);
   }
 }
 
@@ -1802,10 +1812,6 @@ body.nav-open .back-to-top {
 
   .project-card {
     padding: 22px 20px;
-  }
-
-  .navbar.scrolled {
-    background: rgba(10, 15, 30, 0.92);
   }
 }
 
