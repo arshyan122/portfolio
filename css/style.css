@@ -440,6 +440,19 @@ body.cursor-hover .cursor-ring {
   border-bottom: 1px solid var(--border);
 }
 
+/* On mobile we MUST NOT apply backdrop-filter to the navbar: a non-`none`
+   backdrop-filter makes the element a containing block for `position:
+   fixed` descendants (per CSS spec), which would trap the .nav-links
+   drawer inside the 70px-tall navbar after the user scrolls. Use a more
+   solid background instead — visually almost identical on phones. */
+@media (max-width: 760px) {
+  .navbar.scrolled {
+    background: rgba(10, 15, 30, 0.92);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
 .nav-inner {
   height: 100%;
   max-width: var(--container);
