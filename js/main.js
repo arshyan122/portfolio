@@ -99,7 +99,7 @@
         strings: [
           "AI Developer",
           "Full-Stack Engineer",
-          "Cybersecurity Enthusiast",
+          "Backend Engineer",
           "Problem Solver",
         ],
         typeSpeed: 60,
@@ -140,17 +140,32 @@
   /* -------------------- Mobile nav toggle -------------------- */
   const navToggle = document.getElementById("nav-toggle");
   const navLinksWrap = document.getElementById("nav-links");
+  const navScrim = document.getElementById("nav-scrim");
+  const setNavOpen = (open) => {
+    if (!navLinksWrap || !navToggle) return;
+    navLinksWrap.classList.toggle("open", open);
+    document.body.classList.toggle("nav-open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+  };
   if (navToggle && navLinksWrap) {
     navToggle.addEventListener("click", () => {
-      const open = navLinksWrap.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", String(open));
+      const willOpen = !navLinksWrap.classList.contains("open");
+      setNavOpen(willOpen);
     });
     navLinksWrap.querySelectorAll("a").forEach((a) =>
-      a.addEventListener("click", () => {
-        navLinksWrap.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
-      })
+      a.addEventListener("click", () => setNavOpen(false))
     );
+    if (navScrim) {
+      navScrim.addEventListener("click", () => setNavOpen(false));
+    }
+    /* Close drawer if user resizes back to desktop */
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 760) setNavOpen(false);
+    });
+    /* Close drawer on Esc key */
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setNavOpen(false);
+    });
   }
 
   /* -------------------- Animated counters (About stats) -------------------- */
@@ -226,7 +241,13 @@
   }
 
   /* -------------------- tsParticles background -------------------- */
-  if (!prefersReducedMotion && window.tsParticles) {
+  /* Skip on small screens — tsParticles is GPU-heavy and on low-end phones
+     can stutter the page or drain battery. The CSS gradient blobs still
+     provide an animated background. */
+  const isSmallScreen = window.matchMedia("(max-width: 520px)").matches;
+  if (!prefersReducedMotion && !isSmallScreen && window.tsParticles) {
+    /* Halve the particle density on tablets / mid-size screens. */
+    const isMidScreen = window.matchMedia("(max-width: 900px)").matches;
     window.tsParticles
       .load({
         id: "tsparticles",
@@ -235,7 +256,10 @@
           fullScreen: { enable: false },
           background: { color: "transparent" },
           particles: {
-            number: { value: 55, density: { enable: true, area: 900 } },
+            number: {
+              value: isMidScreen ? 28 : 55,
+              density: { enable: true, area: 900 },
+            },
             color: { value: ["#00d4ff", "#1f5c99", "#6db8ff"] },
             shape: { type: "circle" },
             opacity: {

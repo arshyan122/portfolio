@@ -780,7 +780,7 @@ body.cursor-hover .cursor-ring {
 /* ---------- Skills ---------- */
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 20px;
 }
 
@@ -916,7 +916,9 @@ body.cursor-hover .cursor-ring {
 /* ---------- Projects ---------- */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  /* Use min(360px, 100%) so the column never demands more width than the
+     parent container (prevents horizontal overflow on phones <360px wide). */
+  grid-template-columns: repeat(auto-fit, minmax(min(360px, 100%), 1fr));
   gap: 24px;
 }
 
@@ -1283,7 +1285,7 @@ body.cursor-hover .cursor-ring {
 /* ---------- Certifications ---------- */
 .cert-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
   gap: 18px;
 }
 
@@ -1319,7 +1321,7 @@ body.cursor-hover .cursor-ring {
 /* ---------- Contact ---------- */
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
   gap: 16px;
 }
 
@@ -1455,6 +1457,15 @@ body.cursor-hover .cursor-ring {
   opacity: 1;
   transform: translateY(0) scale(1);
   pointer-events: auto;
+}
+
+/* Hide the floating back-to-top button while the mobile nav drawer is open
+   — its z-index puts it in the root stacking context (above the navbar's
+   z-index 100), so without this it would float over the drawer. */
+body.nav-open .back-to-top {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.85) !important;
 }
 
 .back-to-top:hover {
@@ -1664,33 +1675,72 @@ body.cursor-hover .cursor-ring {
 
 @media (max-width: 760px) {
   .section {
-    padding: 80px 0;
+    padding: 70px 0;
+  }
+
+  .section-head {
+    margin-bottom: 36px;
   }
 
   .nav-toggle {
     display: flex;
   }
 
+  /* Solid drawer — many mobile browsers don't support backdrop-filter, so
+     we cannot rely on alpha + blur alone. Use an opaque background to
+     guarantee underlying section content cannot bleed through. */
   .nav-links {
     position: fixed;
     top: var(--nav-h);
     right: 0;
     bottom: 0;
     width: min(85vw, 320px);
-    background: rgba(10, 15, 30, 0.94);
+    background: #0a0f1e;
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 212, 255, 0.04),
+      rgba(31, 92, 153, 0.06)
+    );
     backdrop-filter: blur(18px) saturate(140%);
     -webkit-backdrop-filter: blur(18px) saturate(140%);
     border-left: 1px solid var(--border);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.6);
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     padding: 24px 18px;
     transform: translateX(100%);
     transition: transform 0.3s ease;
+    z-index: 110; /* ensure drawer sits above all section content + cards */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .nav-links.open {
     transform: translateX(0);
+  }
+
+  /* Lock background scroll while the drawer is open */
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  /* Dim the rest of the page so it's clearly behind the drawer */
+  .nav-scrim {
+    position: fixed;
+    inset: var(--nav-h) 0 0 0;
+    background: rgba(5, 8, 18, 0.6);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 105;
+  }
+
+  body.nav-open .nav-scrim {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .nav-link {
@@ -1707,60 +1757,269 @@ body.cursor-hover .cursor-ring {
   .lc-stats {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  /* Smaller, less dominant avatar on tablets/phones */
+  .avatar-ring {
+    width: 170px;
+    height: 170px;
+  }
+
+  .avatar-inner {
+    font-size: 3rem;
+  }
+
+  .hero {
+    padding: 120px 0 60px;
+  }
+
+  .hero-name {
+    line-height: 1.1;
+    word-break: break-word;
+  }
+
+  .hero-cta .btn {
+    flex: 1 1 auto;
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .timeline-card {
+    padding: 20px 18px;
+  }
+
+  .project-card {
+    padding: 22px 20px;
+  }
+
+  .navbar.scrolled {
+    background: rgba(10, 15, 30, 0.92);
+  }
 }
 
 @media (max-width: 520px) {
   .container {
-    padding: 0 18px;
+    padding: 0 16px;
+  }
+
+  .section {
+    padding: 60px 0;
+  }
+
+  .section-head {
+    margin-bottom: 28px;
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 7vw, 2rem);
   }
 
   .stats {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
+  .stat-card {
+    padding: 16px 10px;
+  }
+
+  .stat-num {
+    font-size: 1.6rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+  }
+
+  /* Keep LC stats in 2 columns on phones — single column wastes too much
+     vertical space and makes each card feel awkwardly oversized. */
   .lc-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .lc-card {
+    padding: 16px 10px;
+  }
+
+  .lc-card .lc-icon-bg {
+    font-size: 1.2rem;
+  }
+
+  .lc-card-num {
+    /* Scale the stat number with viewport width so very long values like
+       "#1,075,965" stay on a single line on narrow phones. */
+    font-size: clamp(1.05rem, 4.6vw, 1.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  .lc-card-label {
+    font-size: 0.72rem;
+  }
+
+  .lc-chart-wrap {
+    padding: 18px 14px;
+  }
+
+  .lc-chart-canvas {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Shrink the about avatar so it doesn't dominate the small viewport. */
+  .avatar-ring {
+    width: 140px;
+    height: 140px;
+  }
+
+  .avatar-inner {
+    font-size: 2.4rem;
   }
 
   .edu-card {
     flex-direction: column;
     align-items: stretch;
     text-align: left;
+    padding: 20px;
   }
 
   .timeline {
-    padding-left: 30px;
+    padding-left: 24px;
+  }
+
+  .timeline::before {
+    left: 8px;
   }
 
   .timeline-dot {
-    left: -24px;
+    left: -18px;
     width: 12px;
     height: 12px;
+  }
+
+  .timeline-card {
+    padding: 18px 16px;
+  }
+
+  .timeline-role {
+    font-size: 1.1rem;
+  }
+
+  .project-card {
+    padding: 20px 16px;
+  }
+
+  .project-head {
+    gap: 12px;
+  }
+
+  .project-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.3rem;
+  }
+
+  .project-title {
+    font-size: 1.2rem;
+  }
+
+  .project-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .project-actions .btn {
+    justify-content: center;
+  }
+
+  .hero {
+    padding: 110px 0 50px;
+  }
+
+  .hero-greeting {
+    font-size: 0.8rem;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .hero-cta .btn {
+    width: 100%;
   }
 
   .hero-floating {
     display: none;
   }
 
+  /* tsParticles is GPU-heavy on low-end phones — hide it on small widths
+     to avoid stutter / battery drain. The CSS gradient blobs still
+     provide an animated background. */
+  #tsparticles {
+    display: none;
+  }
+
+  .scroll-progress {
+    height: 2px;
+  }
+
   .back-to-top {
     width: 44px;
     height: 44px;
-    right: 16px;
-    bottom: 16px;
+    right: 14px;
+    bottom: 14px;
     font-size: 1.05rem;
   }
 
   .tech-marquee {
-    padding: 22px 0;
-    margin: 18px 0 6px;
+    padding: 18px 0;
+    margin: 12px 0 4px;
   }
 
   .tech-track {
-    gap: 38px;
+    gap: 32px;
   }
 
   .tech-item {
-    font-size: 0.85rem;
+    font-size: 0.82rem;
+  }
+
+  .skill-group {
+    padding: 20px;
+  }
+
+  .cert-card {
+    padding: 18px;
+  }
+
+  .contact-card {
+    padding: 16px 18px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    font-size: 0.82rem;
+    gap: 14px;
+  }
+}
+
+/* ---------- Touch / coarse pointer ---------- */
+/* Hide the custom-cursor visuals + any hover-only adornments on touch
+   devices — these make tap targets feel laggy and look broken. */
+@media (pointer: coarse), (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: auto !important;
   }
 }
 
