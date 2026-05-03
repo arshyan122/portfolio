@@ -1459,6 +1459,15 @@ body.cursor-hover .cursor-ring {
   pointer-events: auto;
 }
 
+/* Hide the floating back-to-top button while the mobile nav drawer is open
+   — its z-index puts it in the root stacking context (above the navbar's
+   z-index 100), so without this it would float over the drawer. */
+body.nav-open .back-to-top {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.85) !important;
+}
+
 .back-to-top:hover {
   color: #fff;
   box-shadow: 0 8px 32px rgba(0, 212, 255, 0.55), inset 0 0 18px rgba(0, 212, 255, 0.25);

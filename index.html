@@ -67,10 +67,12 @@
         <span></span><span></span><span></span>
       </button>
     </div>
-  </header>
 
-  <!-- Mobile nav scrim (sits behind drawer, dims rest of page) -->
-  <div class="nav-scrim" id="nav-scrim" aria-hidden="true"></div>
+    <!-- Mobile nav scrim (sits behind drawer, dims rest of page).
+         Must live INSIDE .navbar so it shares the navbar's stacking context;
+         otherwise its z-index would paint above the drawer and steal clicks. -->
+    <div class="nav-scrim" id="nav-scrim" aria-hidden="true"></div>
+  </header>
 
   <main>
     <!-- Hero -->
